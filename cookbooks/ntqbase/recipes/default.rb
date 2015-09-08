@@ -8,13 +8,15 @@
 #
 include_recipe "ntp"
 include_recipe "openssh::default"
-
-apt_repository 'netquest-private' do
-  uri 'http://ntq.ubuntu.private.s3-website-us-east-1.amazonaws.com/'
-  components ['main']
-  distribution 'precise'
-  key 'http://ntq.ubuntu.private.s3-website-us-east-1.amazonaws.com/public.gpg.key'
-  action :add
-  deb_src false
+sources=data_bag('apt_sources')
+sources.each do |repo|
+    source=data_bag_item('apt_sources', repo)
+    apt_repository source['id'] do
+    uri source['uri']
+    components source['components']
+    distribution source['distribution']
+    key source['key']
+    action :add
+    deb_src source['deb_src']
+  end
 end
-

@@ -1,0 +1,8 @@
+{
+  "id": "ntqprivate",
+  "uri": "http://ntq.ubuntu.private.s3-website-us-east-1.amazonaws.com/",
+  "components": ["main"],
+  "distribution" : "precise",
+  "key" : "http://ntq.ubuntu.private.s3-website-us-east-1.amazonaws.com/public.gpg.key",
+  "deb_src" : false
+}
