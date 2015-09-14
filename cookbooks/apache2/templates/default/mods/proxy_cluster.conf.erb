@@ -1,0 +1,20 @@
+<IfModule manager_module>
+	Listen <%= node['apache']['mod_proxy_cluster']['listen_ip_port'] %>
+	ManagerBalancerName <%= node['apache']['mod_proxy_cluster']['cluster'] %>
+	MemManagerFile /var/log/apache2/
+	PersistSlots <%= node['apache']['mod_proxy_cluster']['persist_slots'] %>
+	Maxcontext 300
+	Maxnode 100
+	Maxhost 100
+	
+	<VirtualHost <%= node['apache']['mod_proxy_cluster']['vhost'] %>> 
+		<Location />
+		        Order deny,allow
+		        Deny from all
+		        Allow from <%= node['apache']['mod_proxy_cluster']['allow_from'] %>
+		</Location>
+		KeepAliveTimeout 300
+		MaxKeepAliveRequests 0
+		EnableMCPMReceive
+	</VirtualHost>
+</IfModule>
